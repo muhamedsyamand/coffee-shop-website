@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cofe Shop</title>
+    <link rel="icon" href="images/logo.png" type="image/x-icon">
+    
+
+    <style>
+        /* body */
+        body{
+            background-image: url(images/wallpaperflare.com_wallpaper.jpg);
+            background-repeat: repeat-y;
+            background-size: contain;
+            
+            background-color: #F5F5DC;
+            color: #856929;
+            font-family: Arial, sans-serif;
+            border-radius: 30px;
+            margin: 10px;
+            padding: 10px;
+            border: medium solid #856929;
+        }
+
+
+        /* header */
+        header {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 10px;
+            
+        }
+
+        header img {
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+        }
+
+        header div {
+            flex-grow: 1;
+            flex-shrink: 1;
+            flex-basis: 0%;
+        }
+
+        /* Featured Items */
+        h1{
+            text-align: center;
+        }
+
+        .img1{
+            width: 200px;
+            height: 300px;  
+            border-radius: 20px;
+        }
+        
+        .d1{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+
+        hr{
+            margin: 10px; 
+        }
+        a:hover{
+            transform: scale(1.1);
+            transition: all 0.5s;
+            cursor: pointer;
+        }
+
+
+        /* footer */
+        footer{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+        footer a{
+            background-color: #aaaaff;
+            border-radius: 20px;
+            padding: 5px;
+        }   
+
+        a:link{
+            text-decoration: none;
+            color:peru;
+        }
+        a:visited{
+            color: powderblue;
+        }
+
+        .feature{
+            color: powderblue;
+        } 
+    </style>
+</head>
+
+
+
+<body>
+    
+    <header>
+        <div>
+            <h1>Welcome to my Cofe Shop</h1>
+            <h2><q>Your cozy spot for the best coffee and treats in town.</q></h2>
+        </div>
+        <img src="/images/cofe_logo.webp" alt="Coffee Cup Icon">
+    </header>
+
+    
+    <hr>
+
+
+    <div>
+    <h1 class="feature">Featured Items</h1>
+    <br>
+        <div class="d1">
+            <a href="coffeelist.html" target="_self"><img src="images/cofe_image.jpg" alt="Coffee Cup" class="img1"><br>  <h1>Coffee</h1>  </a>
+            <a href="cakelist.html" target="_self" ><img src="images/cake-image.jpg" alt="cake" class="img1"><br>  <h1>Cake</h1>  </a>
+            <a href="icecreamlist.html" target="_self" ><img src="images/ice_cream.jpg" alt="ice cream" class="img1"><br>  <h1>Ice Cream</h1>  </a>
+            <a href="juicelist.html" target="_self" ><img src="images/orange_juice.jpg" alt="juice" class="img1"><br>  <h1>Juice</h1>  </a>
+        </div>
+    </div>
+
+    <hr>
+    
+    <footer>
+        <a href="reservation.html" target="_self">  <h1>Make a Reservation</h1>  </a>
+
+        <a href="contact_us.html" target="_self">  <h1>Contact Us</h1>  </a>
+
+        <a href="about_us.html" target="_self">  <h1>About us</h1>  </a>
+    </footer>
+
+</body>
+</html>

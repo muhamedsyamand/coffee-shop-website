@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="products.css">
+    <script src="app.js"></script>
+    <link rel="icon" href="images/logo.png" type="image/x-icon">
+    <title>Cofe Shop</title>
+    
+    <style>
+        body{
+            background-color: #AEC6CF;
+            color: #FFFFFF;
+            border: medium solid #fff8e1;
+        }
+
+        header{
+            background-color: #d2b48c;
+            color: #fff8e1;
+        }
+        
+        nav a{
+            background-color: white;
+            color: #4B382A;
+        }
+        
+        td{
+            border: solid medium #ede0d4;
+        }
+       
+       input{
+            background-color: #4B382A;
+            color: #F5F5DC;
+       }
+
+       button{
+            background-color: #4B382A;
+            color: #F5F5DC;
+       }
+       td:nth-of-type(odd){
+            background-color: #f0f8ff;
+            color: darkcyan;
+       }
+       td:nth-of-type(even){
+            background-color: #FAEBD7;
+            color: darkcyan;
+       }
+    </style>
+</head>
+<body>
+    <header style="display: flex; align-items: center; justify-content: space-between; position: relative; background-color: #d2b48c; color: #fff8e1; padding: 20px; box-shadow: 5px 5px 10px #8d6e63; border-radius: 10px; margin: 10px;">
+    <h1 style="position: absolute; left: 50%; transform: translateX(-50%); margin: 0;">Muhamed's cofe</h1>
+    <a href="index.html" style="text-decoration: none; color: #fff8e1; font-size: large; font-weight: bold;">← Back to Home</a>
+</header>
+
+
+    <nav>
+        <a href="#cake-list">Cake List</a>
+        <a href="#cart">Cart</a>
+    </nav>
+
+
+    <div id="cake-list">
+        <h2>Our Cake List</h2>
+    <div>
+
+
+        <table>
+            <tr>
+                <td>
+                    <img src="/images/Chocolate_Cake_image.jpg" alt="Chocolate Cake">
+                    <h3>Chocolate Cake</h3>
+                    <p><strong>Price: $3.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Chocolate Cake', 3.00)">
+                </td>
+
+                <td>
+                    <img src="/images/Vanilla_Cake_image.jpg" alt="Vanilla Cake">
+                    <h3>Vanilla Cake</h3>
+                    <p><strong>Price: $4.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Vanilla Cake', 4.00)">
+                </td>
+
+                <td>
+                    <img src="/images/Red_Velvet_Cake_image.jpg" alt="Red Velvet Cake">
+                    <h3>Red Velvet Cake</h3>
+                    <p><strong>Price: $4.50</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Red Velvet Cake', 4.50)">
+                </td>
+
+                <td>
+                    <img src="/images/Banana_Cake_image.jpg" alt="Banana Cake">
+                    <h3>Banana Cake</h3>
+                    <p><strong>Price: $3.50</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Banana Cake', 3.50)">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="/images/tralicha_cake_image.jpg" alt="tralicha cake">
+                    <h3>tralicha cake</h3>
+                    <p><strong>Price: $5.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('tralicha cake', 5.00)">
+                </td>
+
+                <td>
+                    <img src="/images/Coffee_Cake_image.jpg" alt="Coffee Cake">
+                    <h3>Coffee Cake</h3>
+                    <p><strong>Price: $4.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Coffee Cake', 4.00)">
+                </td>
+
+                <td>
+                    <img src="/images/Funfetti_Cake_image.jpg" alt="Funfetti Cake">
+                    <h3>Funfetti Cake</h3>
+                    <p><strong>Price: $4.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Funfetti Cake', 4.00)">
+                </td>
+
+                <td>
+                    <img src="/images/Black_Forest_Cake_image.jpg" alt="Black Forest Cake">
+                    <h3>Black Forest Cake</h3>
+                    <p><strong>Price: $6.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Black Forest Cake', 6.00)">
+                </td>
+            </tr>
+    </table>
+
+
+    <div id="cart" class="div1">
+        <h2>Your Cart</h2>
+        <div id="cart-items"></div>
+        <div>
+            <p><strong>Total: $<span id="cart-total">0</span></strong></p>
+            <button onclick="placeOrder()">Order</button>
+            <div id="returnMessage"></div>
+        </div>
+    </div>
+
+</body>
+
+</html>

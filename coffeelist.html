@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="products.css">
+    <link rel="icon" href="images/logo.png">
+    <title>Cofe Shop</title>
+     
+    <style>
+        body{
+            background-color: #3b2f2f;
+            color: #ede0d4;
+            border: medium solid #fff8e1;
+        }
+
+        header{
+            background-color: #d2b48c;
+            color: #fff8e1;
+        }
+        nav a{
+            background-color: white;
+            color: #4B382A;
+        }
+        td{
+            border: solid medium #ede0d4;
+        }
+
+       
+       input{
+            background-color: #4B382A;
+            color: #F5F5DC;
+       }
+
+       button{
+            background-color: #4B382A;
+            color: #F5F5DC;
+       }
+       td:nth-of-type(odd){
+            background-color: #3b2f2f;
+       }
+       td:nth-of-type(even){
+            background-color: #E6E6FA;
+            color: #4B382A;
+       }
+    </style>
+</head>
+<body>
+    <header style="display: flex; align-items: center; justify-content: space-between; position: relative; background-color: #d2b48c; color: #fff8e1; padding: 20px; box-shadow: 5px 5px 10px #8d6e63; border-radius: 10px; margin: 10px;">
+    <h1 style="position: absolute; left: 50%; transform: translateX(-50%); margin: 0;">Muhamed's cofe</h1>
+    <a href="index.html" style="text-decoration: none; color: #fff8e1; font-size: large; font-weight: bold;">← Back to Home</a>
+</header>
+
+
+    <nav>
+        <a href="#coffee-list">Coffee List</a>
+        <a href="#cart">Cart</a>
+    </nav>
+
+
+    <div id="coffee-list">
+        <h2>Our Coffee List</h2>
+    <div>
+
+
+        <table>
+            <tr>
+                <td>
+                    <img src="/images/expresso_image.jpg" alt="Espresso">
+                    <h3>Espresso</h3>
+                    <p><strong>Price: $3.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Espresso', 3.00)">
+                </td>
+
+                <td>
+                    <img src="/images/latte_image.webp" alt="Latte">
+                    <h3>Latte</h3>
+                    <p><strong>Price: $4.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Latte', 4.00)">
+                </td>
+
+                <td>
+                    <img src="/images/cappuccino+image.jpg" alt="Cappuccino">
+                    <h3>Cappuccino</h3>
+                    <p><strong>Price: $4.50</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Cappuccino', 4.50)">
+                </td>
+
+                <td>
+                    <img src="/images/americano_image.jpg" alt="Americano">
+                    <h3>Americano</h3>
+                    <p><strong>Price: $3.50</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Americano', 3.50)">
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>
+                    <img src="/images/Mocha_image.jpg" alt="Mocha">
+                    <h3>Mocha</h3>
+                    <p><strong>Price: $5.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Mocha', 5.00)">
+                </td>
+
+                <td>
+                    <img src="/images/Macchiato_image.jpg" alt="Macchiato">
+                    <h3>Macchiato</h3>
+                    <p><strong>Price: $4.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Macchiato', 4.00)">
+                </td>
+
+                <td>
+                    <img src="/images/Flat_White_image.webp" alt="Flat White">
+                    <h3>Flat White</h3>
+                    <p><strong>Price: $4.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Flat White', 4.00)">
+                </td>
+
+                <td>
+                    <img src="/images/iced_spanish_latte_image.jpg" alt="Spanish Latte">
+                    <h3>Spanish Latte</h3>
+                    <p><strong>Price: $6.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Spanish Latte', 6.00)">
+                </td>
+            </tr>
+    </table>
+
+
+    <div id="cart" class="div1">
+        <h2>Your Cart</h2>
+        <div id="cart-items"></div>
+        <div class="cart-summary">
+            <p><strong>Total: $<span id="cart-total">0</span></strong></p>
+            <button onclick="placeOrder()">Order</button>
+            <div id="returnMessage"></div>
+        </div>
+    </div>
+
+</body>
+
+</html>
