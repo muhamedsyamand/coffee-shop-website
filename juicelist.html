@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="products.css">
+    <link rel="icon" href="images/logo.png" type="image/x-icon">
+    <title>Cofe Shop</title>
+    
+    <style>
+        body{
+            background-color: #007BFF;
+            color: #3E2723;
+            border: thick solid #FFA500;
+            padding-bottom: 80px;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #007BFF;
+            text-align: center;
+            padding: 12px 0;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        header{
+            background-color: #FF8C00;
+            color: #FFFFFF;
+        }
+        nav a{
+            background-color: aqua;
+            color: #4B382A;
+        }
+        td{
+            border: solid medium purple;
+        }
+        input{
+            background-color: #FFA500;
+            color: #FFFFFF;
+        }
+
+       button{
+            background-color: #FF6347;
+            color: #FFFFFF;
+       }
+
+       td:nth-of-type(odd){
+            background-color: #FFD1B3;
+       }
+       td:nth-of-type(even){
+            background-color: #E6E6FA;
+       }
+
+    </style>
+</head>
+<body>
+    <header style="display:flex; align-items:center; justify-content:center; position:relative; background-color: #FF8C00; color: #FFFFFF; padding: 20px; border-radius: 10px; box-shadow: 5px 5px 10px #8d6e63; margin: 10px;">
+        <h1 style="margin: 0;">Muhamed's cofe</h1>
+    </header>
+
+
+    <nav>
+        <a href="#juice-list">Juice List</a>
+        <a href="#cart">Cart</a>
+    </nav>
+
+
+    <div id="juice-list">
+        <h2>Our Juice List</h2>
+    <div>
+
+
+        <table>
+            <tr>
+                <td>
+                    <img src="/images/water_image.jpg" alt="water">
+                    <h3>water</h3>
+                    <p><strong>Price: $1.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('water', 1.00)">
+                </td>
+
+                <td>
+                    <img src="/images/tea_image.jpg" alt="Tea">
+                    <h3>Tea</h3>
+                    <p><strong>Price: $4.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Tea', 4.00)">
+                </td>
+
+                <td>
+                    <img src="/images/OrangeJuice-image.jpg" alt="Orange Juice">
+                    <h3>Orange Juice</h3>
+                    <p><strong>Price: $4.50</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Orange Juice', 4.50)">
+                </td>
+
+                <td>
+                    <img src="/images/Vanilla-Strawberry-Milkshake-image.jpg" alt="Vanilla Strawberry">
+                    <h3>Vanilla Strawberry</h3>
+                    <p><strong>Price: $3.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Vanilla Strawberry', 3.00)">
+                </td>
+
+            
+            </tr>
+
+
+
+            <tr>
+                <td>
+                    <img src="/images/Mango_Smoothie_image.jpg" alt="Mango Smoothie">
+                    <h3>Mango Smoothie</h3>
+                    <p><strong>Price: $5.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Mango Smoothie', 5.00)">
+                </td>
+
+                <td>
+                    <img src="/images/Tropical_Smoothie_image.jpg" alt="Tropical Smoothie">
+                    <h3>Tropical Smoothie</h3>
+                    <p><strong>Price: $4.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Tropical Smoothie', 4.00)">
+                </td>
+
+                <td>
+                    <img src="/images/Papaya_Smoothie_image.jpg" alt="Papaya Smoothie">
+                    <h3>Papaya Smoothie</h3>
+                    <p><strong>Price: $6.00</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Papaya Smoothie', 6.00)">
+                </td>
+
+                <td>
+                    <img src="/images/Berry_Smoothie_image.jpg" alt="Berry Smoothie">
+                    <h3>Berry Smoothie</h3>
+                    <p><strong>Price: $3.50</strong></p>
+                    <input type="button" value="Order Now" onclick="addToCart('Berry Smoothie', 3.50)">
+                </td>
+
+            </tr>
+    </table>
+
+
+    <div id="cart" class="div1">
+        <h2>Your Cart</h2>
+        <div id="cart-items"></div>
+        <div>
+            <p><strong>Total: $<span id="cart-total">0</span></strong></p>
+            <button onclick="placeOrder()">Order</button>
+            <div id="returnMessage"></div>
+        </div>
+    </div>
+
+    <footer style="text-align:center; margin-top:16px;">
+        <a href="index.html" style="text-decoration: none; color: #FFFFFF; font-weight: bold;">← Back to Home</a>
+    </footer>
+
+</body>
+
+</html>
