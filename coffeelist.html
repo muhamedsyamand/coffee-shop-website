@@ -6,152 +6,673 @@
     <script src="app.js"></script>
     <link rel="stylesheet" href="products.css">
     <link rel="icon" href="images/logo.png">
-    <title>Cofe Shop</title>
+    <title>Muhamed's Coffee</title>
      
     <style>
-        body{
-            background-color: #3b2f2f;
-            color: #ede0d4;
-            border: medium solid #fff8e1;
-            padding-bottom: 80px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            background: linear-gradient(135deg, #2d1f1f 0%, #3b2f2f 100%);
+            color: #f0e8e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-bottom: 100px;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #d4a574 0%, #c99968 100%);
+            color: #fff8e1;
+            padding: 32px 20px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            border-bottom: 4px solid #8d6e63;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header p {
+            font-size: 0.95rem;
+            margin-top: 8px;
+            opacity: 0.95;
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            padding: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        nav a {
+            background-color: transparent;
+            color: #f0e8e0;
+            padding: 16px 28px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav a:last-child {
+            border-right: none;
+        }
+
+        nav a:hover {
+            background-color: #d4a574;
+            color: #2d1f1f;
+            transform: translateY(-2px);
+        }
+
+        #coffee-list {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        #coffee-list > h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #d4a574;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .coffee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .coffee-card {
+            background: linear-gradient(135deg, #4a3f3f 0%, #3b2f2f 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid #5a4f4f;
+        }
+
+        .coffee-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(212, 165, 116, 0.3);
+            border-color: #d4a574;
+        }
+
+        .coffee-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .coffee-card-content {
+            padding: 24px;
+        }
+
+        .coffee-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #d4a574;
+        }
+
+        .coffee-card p {
+            font-size: 0.95rem;
+            margin-bottom: 18px;
+            color: #d0c8c0;
+        }
+
+        .price-tag {
+            font-size: 1.4rem;
+            color: #d4a574;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .order-btn {
+            background: linear-gradient(135deg, #d4a574 0%, #c99968 100%);
+            color: #2d1f1f;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+        }
+
+        .order-btn:hover {
+            background: linear-gradient(135deg, #e6b584 0%, #dab578 100%);
+            transform: scale(1.02);
+            box-shadow: 0 6px 16px rgba(212, 165, 116, 0.5);
+        }
+
+        .order-btn:active {
+            transform: scale(0.98);
+        }
+
+        #cart {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 40px;
+            background: linear-gradient(135deg, #4a3f3f 0%, #3b2f2f 100%);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid #5a4f4f;
+        }
+
+        #cart h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #d4a574;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #cart-items {
+            margin-bottom: 30px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background-color: rgba(212, 165, 116, 0.1);
+            border-left: 4px solid #d4a574;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .cart-item:hover {
+            background-color: rgba(212, 165, 116, 0.15);
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: #f0e8e0;
+        }
+
+        .cart-item-price {
+            color: #d4a574;
+            font-weight: 700;
+        }
+
+        .cart-summary {
+            padding: 24px;
+            background-color: rgba(212, 165, 116, 0.15);
+            border-radius: 12px;
+            border: 2px solid #d4a574;
+        }
+
+        .cart-summary p {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #f0e8e0;
+        }
+
+        #cart-total {
+            color: #d4a574;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+
+        .order-button {
+            background: linear-gradient(135deg, #d4a574 0%, #c99968 100%);
+            color: #2d1f1f;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+        }
+
+        .order-button:hover {
+            background: linear-gradient(135deg, #e6b584 0%, #dab578 100%);
+            transform: scale(1.02);
+            box-shadow: 0 6px 16px rgba(212, 165, 116, 0.5);
+        }
+
+        .order-button:active {
+            transform: scale(0.98);
+        }
+
+        #returnMessage {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        #returnMessage.success {
+            display: block;
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #90ee90;
+            border: 1px solid #76c77d;
+        }
+
+        #returnMessage.error {
+            display: block;
+            background-color: rgba(244, 67, 54, 0.2);
+            color: #ff6b6b;
+            border: 1px solid #ff5252;
+        }
+
+        /* ========== ANIMATIONS ========== */
+
+        /* Header Animation */
+        header {
+            animation: headerSlideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes headerSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header h1 {
+            animation: titlePulse 1s ease-out 0.3s;
+        }
+
+        @keyframes titlePulse {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Navigation Animation */
+        nav {
+            animation: navFadeIn 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes navFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        nav a {
+            transition: all 0.3s ease;
+        }
+
+        /* Section Title Animation */
+        #coffee-list > h2 {
+            animation: titleSlideUp 0.8s ease-out;
+        }
+
+        @keyframes titleSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Coffee Card Stagger Animation */
+        .coffee-card {
+            animation: cardSlideIn 0.6s ease-out both;
+            transition: all 0.3s ease;
+        }
+
+        .coffee-card:nth-child(1) { animation-delay: 0.1s; }
+        .coffee-card:nth-child(2) { animation-delay: 0.2s; }
+        .coffee-card:nth-child(3) { animation-delay: 0.3s; }
+        .coffee-card:nth-child(4) { animation-delay: 0.4s; }
+        .coffee-card:nth-child(5) { animation-delay: 0.5s; }
+        .coffee-card:nth-child(6) { animation-delay: 0.6s; }
+        .coffee-card:nth-child(7) { animation-delay: 0.7s; }
+        .coffee-card:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes cardSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Button Ripple Effect */
+        .order-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .order-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .order-btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Cart Section Animation */
+        #cart {
+            animation: cartSlideUp 0.8s ease-out 0.3s both;
+        }
+
+        @keyframes cartSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #cart h2 {
+            animation: titleFade 0.8s ease-out 0.5s both;
+        }
+
+        @keyframes titleFade {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Cart Item Animation */
+        .cart-item {
+            animation: cartItemFadeIn 0.4s ease-out backwards;
+        }
+
+        .cart-item:nth-child(1) { animation-delay: 0.6s; }
+        .cart-item:nth-child(2) { animation-delay: 0.7s; }
+        .cart-item:nth-child(3) { animation-delay: 0.8s; }
+        .cart-item:nth-child(4) { animation-delay: 0.9s; }
+        .cart-item:nth-child(5) { animation-delay: 1s; }
+
+        @keyframes cartItemFadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .cart-item:hover {
+            animation: itemPulse 0.4s ease-out;
+        }
+
+        @keyframes itemPulse {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(4px);
+            }
+        }
+
+        /* Footer Animation */
+        footer {
+            animation: footerSlideUp 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes footerSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer a {
+            animation: linkFade 0.6s ease-out 0.5s both;
+        }
+
+        @keyframes linkFade {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
         footer {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: #3b2f2f;
+            background-color: #2d1f1f;
+            padding: 16px;
             text-align: center;
-            padding: 12px 0;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.3);
             z-index: 100;
+            border-top: 2px solid #d4a574;
         }
 
-        header{
-            background-color: #d2b48c;
-            color: #fff8e1;
-        }
-        nav a{
-            background-color: white;
-            color: #4B382A;
-        }
-        td{
-            border: solid medium #ede0d4;
+        footer a {
+            text-decoration: none;
+            color: #d4a574;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
-       
-       input{
-            background-color: #4B382A;
-            color: #F5F5DC;
-       }
+        footer a:hover {
+            color: #e6b584;
+            transform: translateX(-4px);
+        }
 
-       button{
-            background-color: #4B382A;
-            color: #F5F5DC;
-       }
-       td:nth-of-type(odd){
-            background-color: #3b2f2f;
-       }
-       td:nth-of-type(even){
-            background-color: #E6E6FA;
-            color: #4B382A;
-       }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav {
+                flex-direction: column;
+            }
+
+            nav a {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            nav a:last-child {
+                border-bottom: none;
+            }
+
+            .coffee-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+
+            #cart {
+                margin: 40px auto;
+                padding: 24px;
+            }
+        }
     </style>
 </head>
 <body>
-    <header style="display:flex; align-items:center; justify-content:center; position:relative; background-color: #d2b48c; color: #fff8e1; padding: 16px; box-shadow: 5px 5px 10px #8d6e63; border-radius: 10px; margin: 10px;">
-        <h1 style="margin: 0; font-size:1.25rem;">Muhamed's cofe</h1>
+    <header>
+        <h1>☕ Muhamed's Coffee</h1>
+        <p>Premium Coffee Experience</p>
     </header>
 
-
     <nav>
-        <a href="#coffee-list">Coffee List</a>
-        <a href="#cart">Cart</a>
+        <a href="#coffee-list">Coffee Menu</a>
+        <a href="#cart">Shopping Cart</a>
     </nav>
 
 
     <div id="coffee-list">
-        <h2>Our Coffee List</h2>
-    <div>
-
-
-        <table>
-            <tr>
-                <td>
-                    <img src="/images/expresso_image.jpg" alt="Espresso">
+        <h2>Our Coffee Selection</h2>
+        <div class="coffee-grid">
+            <div class="coffee-card">
+                <img src="/images/expresso_image.jpg" alt="Espresso">
+                <div class="coffee-card-content">
                     <h3>Espresso</h3>
-                    <p><strong>Price: $3.00</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Espresso', 3.00)">
-                </td>
+                    <p>Rich, bold, and concentrated</p>
+                    <div class="price-tag">$3.00</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Espresso', 3.00)">
+                </div>
+            </div>
 
-                <td>
-                    <img src="/images/latte_image.webp" alt="Latte">
+            <div class="coffee-card">
+                <img src="/images/latte_image.webp" alt="Latte">
+                <div class="coffee-card-content">
                     <h3>Latte</h3>
-                    <p><strong>Price: $4.00</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Latte', 4.00)">
-                </td>
+                    <p>Smooth espresso with steamed milk</p>
+                    <div class="price-tag">$4.00</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Latte', 4.00)">
+                </div>
+            </div>
 
-                <td>
-                    <img src="/images/cappuccino+image.jpg" alt="Cappuccino">
+            <div class="coffee-card">
+                <img src="/images/cappuccino+image.jpg" alt="Cappuccino">
+                <div class="coffee-card-content">
                     <h3>Cappuccino</h3>
-                    <p><strong>Price: $4.50</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Cappuccino', 4.50)">
-                </td>
+                    <p>Perfect blend of espresso and foam</p>
+                    <div class="price-tag">$4.50</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Cappuccino', 4.50)">
+                </div>
+            </div>
 
-                <td>
-                    <img src="/images/americano_image.jpg" alt="Americano">
+            <div class="coffee-card">
+                <img src="/images/americano_image.jpg" alt="Americano">
+                <div class="coffee-card-content">
                     <h3>Americano</h3>
-                    <p><strong>Price: $3.50</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Americano', 3.50)">
-                </td>
-            </tr>
+                    <p>Strong espresso with hot water</p>
+                    <div class="price-tag">$3.50</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Americano', 3.50)">
+                </div>
+            </div>
 
-
-
-            <tr>
-                <td>
-                    <img src="/images/Mocha_image.jpg" alt="Mocha">
+            <div class="coffee-card">
+                <img src="/images/Mocha_image.jpg" alt="Mocha">
+                <div class="coffee-card-content">
                     <h3>Mocha</h3>
-                    <p><strong>Price: $5.00</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Mocha', 5.00)">
-                </td>
+                    <p>Espresso with chocolate and milk</p>
+                    <div class="price-tag">$5.00</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Mocha', 5.00)">
+                </div>
+            </div>
 
-                <td>
-                    <img src="/images/Macchiato_image.jpg" alt="Macchiato">
+            <div class="coffee-card">
+                <img src="/images/Macchiato_image.jpg" alt="Macchiato">
+                <div class="coffee-card-content">
                     <h3>Macchiato</h3>
-                    <p><strong>Price: $4.00</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Macchiato', 4.00)">
-                </td>
+                    <p>Espresso marked with foam</p>
+                    <div class="price-tag">$4.00</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Macchiato', 4.00)">
+                </div>
+            </div>
 
-                <td>
-                    <img src="/images/Flat_White_image.webp" alt="Flat White">
+            <div class="coffee-card">
+                <img src="/images/Flat_White_image.webp" alt="Flat White">
+                <div class="coffee-card-content">
                     <h3>Flat White</h3>
-                    <p><strong>Price: $4.00</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Flat White', 4.00)">
-                </td>
+                    <p>Creamy microfoam espresso blend</p>
+                    <div class="price-tag">$4.00</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Flat White', 4.00)">
+                </div>
+            </div>
 
-                <td>
-                    <img src="/images/iced_spanish_latte_image.jpg" alt="Spanish Latte">
+            <div class="coffee-card">
+                <img src="/images/iced_spanish_latte_image.jpg" alt="Spanish Latte">
+                <div class="coffee-card-content">
                     <h3>Spanish Latte</h3>
-                    <p><strong>Price: $6.00</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Spanish Latte', 6.00)">
-                </td>
-            </tr>
-    </table>
+                    <p>Chilled espresso with condensed milk</p>
+                    <div class="price-tag">$6.00</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Spanish Latte', 6.00)">
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-    <div id="cart" class="div1">
+    <div id="cart">
         <h2>Your Cart</h2>
         <div id="cart-items"></div>
         <div class="cart-summary">
-            <p><strong>Total: $<span id="cart-total">0</span></strong></p>
-            <button onclick="placeOrder()">Order</button>
+            <p>Total: <span id="cart-total">$0.00</span></p>
+            <button class="order-button" onclick="placeOrder()">Complete Order</button>
             <div id="returnMessage"></div>
         </div>
     </div>
 
-    <footer style="text-align:center; margin-top:16px;">
-        <a href="index.html" style="text-decoration: none; color: #fff8e1; font-weight: bold;">← Back to Home</a>
+    <footer>
+        <a href="index.html">← Back to Home</a>
     </footer>
 
 </body>

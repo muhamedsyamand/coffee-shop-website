@@ -4,156 +4,616 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="app.js"></script>
-    <link rel="stylesheet" href="products.css">
-    <link rel="icon" href="images/logo.png" type="image/x-icon">
-    <title>Cofe Shop</title>
+    <link rel="icon" href="images/logo.png">
+    <title>Muhamed's Juices</title>
     
     <style>
-        body{
-            background-color: #007BFF;
-            color: #3E2723;
-            border: thick solid #FFA500;
-            padding-bottom: 80px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe8f0 100%);
+            color: #333333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-bottom: 100px;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff7043 0%, #ff5722 100%);
+            color: #ffffff;
+            padding: 32px 20px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(255, 112, 67, 0.3);
+            border-bottom: 4px solid #d84315;
+            animation: headerSlideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes headerSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: titlePulse 1s ease-out 0.3s both;
+        }
+
+        @keyframes titlePulse {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        header p {
+            font-size: 0.95rem;
+            margin-top: 8px;
+            opacity: 0.95;
+        }
+
+        nav {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            padding: 0;
+            box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            animation: navFadeIn 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes navFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        nav a {
+            background-color: transparent;
+            color: #ffffff;
+            padding: 16px 28px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        nav a:last-child {
+            border-right: none;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        #juice-list {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        #juice-list > h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #ff7043;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: titleSlideUp 0.8s ease-out;
+        }
+
+        @keyframes titleSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .juice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .juice-card {
+            background: linear-gradient(135deg, #fff9e6 0%, #fffbe6 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 112, 67, 0.15);
+            transition: all 0.3s ease;
+            border: 2px solid #ffb74d;
+            animation: cardSlideIn 0.6s ease-out both;
+        }
+
+        .juice-card:nth-child(1) { animation-delay: 0.1s; }
+        .juice-card:nth-child(2) { animation-delay: 0.2s; }
+        .juice-card:nth-child(3) { animation-delay: 0.3s; }
+        .juice-card:nth-child(4) { animation-delay: 0.4s; }
+        .juice-card:nth-child(5) { animation-delay: 0.5s; }
+        .juice-card:nth-child(6) { animation-delay: 0.6s; }
+        .juice-card:nth-child(7) { animation-delay: 0.7s; }
+        .juice-card:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes cardSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .juice-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(255, 112, 67, 0.3);
+            border-color: #ff7043;
+        }
+
+        .juice-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .juice-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .juice-card-content {
+            padding: 24px;
+        }
+
+        .juice-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #ff7043;
+        }
+
+        .juice-card p {
+            font-size: 0.95rem;
+            margin-bottom: 18px;
+            color: #666666;
+        }
+
+        .price-tag {
+            font-size: 1.4rem;
+            color: #ff9800;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .order-btn {
+            background: linear-gradient(135deg, #76ff03 0%, #64dd17 100%);
+            color: #333333;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(118, 255, 3, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .order-btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .order-btn:hover {
+            background: linear-gradient(135deg, #9cff57 0%, #7ee85e 100%);
+            transform: scale(1.02);
+            box-shadow: 0 6px 16px rgba(118, 255, 3, 0.5);
+        }
+
+        .order-btn:active {
+            transform: scale(0.98);
+        }
+
+        #cart {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 40px;
+            background: linear-gradient(135deg, #fff9e6 0%, #fffbe6 100%);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(255, 112, 67, 0.15);
+            border: 2px solid #ffb74d;
+            animation: cartSlideUp 0.8s ease-out 0.3s both;
+        }
+
+        @keyframes cartSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #cart h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #ff7043;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: titleFade 0.8s ease-out 0.5s both;
+        }
+
+        @keyframes titleFade {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        #cart-items {
+            margin-bottom: 30px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background-color: rgba(255, 112, 67, 0.1);
+            border-left: 4px solid #ff7043;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            animation: cartItemFadeIn 0.4s ease-out backwards;
+        }
+
+        .cart-item:nth-child(1) { animation-delay: 0.6s; }
+        .cart-item:nth-child(2) { animation-delay: 0.7s; }
+        .cart-item:nth-child(3) { animation-delay: 0.8s; }
+        .cart-item:nth-child(4) { animation-delay: 0.9s; }
+        .cart-item:nth-child(5) { animation-delay: 1s; }
+
+        @keyframes cartItemFadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .cart-item:hover {
+            background-color: rgba(255, 112, 67, 0.15);
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .cart-item-price {
+            color: #ff7043;
+            font-weight: 700;
+        }
+
+        .cart-summary {
+            padding: 24px;
+            background-color: rgba(255, 112, 67, 0.1);
+            border-radius: 12px;
+            border: 2px solid #ff7043;
+        }
+
+        .cart-summary p {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        #cart-total {
+            color: #ff7043;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+
+        .order-button {
+            background: linear-gradient(135deg, #76ff03 0%, #64dd17 100%);
+            color: #333333;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(118, 255, 3, 0.3);
+        }
+
+        .order-button:hover {
+            background: linear-gradient(135deg, #9cff57 0%, #7ee85e 100%);
+            transform: scale(1.02);
+            box-shadow: 0 6px 16px rgba(118, 255, 3, 0.5);
+        }
+
+        .order-button:active {
+            transform: scale(0.98);
+        }
+
+        #returnMessage {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        #returnMessage.success {
+            display: block;
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #90ee90;
+            border: 1px solid #76c77d;
+        }
+
+        #returnMessage.error {
+            display: block;
+            background-color: rgba(244, 67, 54, 0.2);
+            color: #ff6b6b;
+            border: 1px solid #ff5252;
+        }
+
         footer {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: #007BFF;
+            background: linear-gradient(135deg, #ff7043 0%, #ff5722 100%);
+            padding: 16px;
             text-align: center;
-            padding: 12px 0;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 -4px 16px rgba(255, 112, 67, 0.3);
             z-index: 100;
+            border-top: 2px solid #ff9800;
+            animation: footerSlideUp 0.8s ease-out 0.4s both;
         }
 
-        header{
-            background-color: #FF8C00;
-            color: #FFFFFF;
-        }
-        nav a{
-            background-color: aqua;
-            color: #4B382A;
-        }
-        td{
-            border: solid medium purple;
-        }
-        input{
-            background-color: #FFA500;
-            color: #FFFFFF;
+        @keyframes footerSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-       button{
-            background-color: #FF6347;
-            color: #FFFFFF;
-       }
+        footer a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            animation: linkFade 0.6s ease-out 0.5s both;
+        }
 
-       td:nth-of-type(odd){
-            background-color: #FFD1B3;
-       }
-       td:nth-of-type(even){
-            background-color: #E6E6FA;
-       }
+        @keyframes linkFade {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
 
+        footer a:hover {
+            color: #ffffff;
+            transform: translateX(-4px);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav {
+                flex-direction: column;
+            }
+
+            nav a {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            nav a:last-child {
+                border-bottom: none;
+            }
+
+            .juice-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+
+            #cart {
+                margin: 40px auto;
+                padding: 24px;
+            }
+        }
     </style>
 </head>
 <body>
-    <header style="display:flex; align-items:center; justify-content:center; position:relative; background-color: #FF8C00; color: #FFFFFF; padding: 20px; border-radius: 10px; box-shadow: 5px 5px 10px #8d6e63; margin: 10px;">
-        <h1 style="margin: 0;">Muhamed's cofe</h1>
+    <header>
+        <h1>🧃 Muhamed's Juices</h1>
+        <p>Fresh & Nutritious Beverages</p>
     </header>
 
-
     <nav>
-        <a href="#juice-list">Juice List</a>
-        <a href="#cart">Cart</a>
+        <a href="#juice-list">Juice Menu</a>
+        <a href="#cart">Shopping Cart</a>
     </nav>
 
-
     <div id="juice-list">
-        <h2>Our Juice List</h2>
-    <div>
+        <h2>Our Juice Selection</h2>
+        <div class="juice-grid">
+            <div class="juice-card">
+                <img src="images/water_image.jpg" alt="Water">
+                <div class="juice-card-content">
+                    <h3>Water</h3>
+                    <p>Pure refreshing water</p>
+                    <div class="price-tag">$1.00</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Water', 1.00)">
+                </div>
+            </div>
 
-
-        <table>
-            <tr>
-                <td>
-                    <img src="/images/water_image.jpg" alt="water">
-                    <h3>water</h3>
-                    <p><strong>Price: $1.00</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('water', 1.00)">
-                </td>
-
-                <td>
-                    <img src="/images/tea_image.jpg" alt="Tea">
+            <div class="juice-card">
+                <img src="images/tea_image.jpg" alt="Tea">
+                <div class="juice-card-content">
                     <h3>Tea</h3>
-                    <p><strong>Price: $4.00</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Tea', 4.00)">
-                </td>
+                    <p>Freshly brewed hot tea</p>
+                    <div class="price-tag">$4.00</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Tea', 4.00)">
+                </div>
+            </div>
 
-                <td>
-                    <img src="/images/OrangeJuice-image.jpg" alt="Orange Juice">
+            <div class="juice-card">
+                <img src="images/OrangeJuice-image.jpg" alt="Orange Juice">
+                <div class="juice-card-content">
                     <h3>Orange Juice</h3>
-                    <p><strong>Price: $4.50</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Orange Juice', 4.50)">
-                </td>
+                    <p>Fresh squeezed orange juice</p>
+                    <div class="price-tag">$4.50</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Orange Juice', 4.50)">
+                </div>
+            </div>
 
-                <td>
-                    <img src="/images/Vanilla-Strawberry-Milkshake-image.jpg" alt="Vanilla Strawberry">
+            <div class="juice-card">
+                <img src="images/Vanilla-Strawberry-Milkshake-image.jpg" alt="Vanilla Strawberry">
+                <div class="juice-card-content">
                     <h3>Vanilla Strawberry</h3>
-                    <p><strong>Price: $3.00</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Vanilla Strawberry', 3.00)">
-                </td>
+                    <p>Creamy strawberry shake</p>
+                    <div class="price-tag">$3.00</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Vanilla Strawberry', 3.00)">
+                </div>
+            </div>
 
-            
-            </tr>
-
-
-
-            <tr>
-                <td>
-                    <img src="/images/Mango_Smoothie_image.jpg" alt="Mango Smoothie">
+            <div class="juice-card">
+                <img src="images/Mango_Smoothie_image.jpg" alt="Mango Smoothie">
+                <div class="juice-card-content">
                     <h3>Mango Smoothie</h3>
-                    <p><strong>Price: $5.00</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Mango Smoothie', 5.00)">
-                </td>
+                    <p>Tropical mango smoothie</p>
+                    <div class="price-tag">$5.00</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Mango Smoothie', 5.00)">
+                </div>
+            </div>
 
-                <td>
-                    <img src="/images/Tropical_Smoothie_image.jpg" alt="Tropical Smoothie">
+            <div class="juice-card">
+                <img src="images/Tropical_Smoothie_image.jpg" alt="Tropical Smoothie">
+                <div class="juice-card-content">
                     <h3>Tropical Smoothie</h3>
-                    <p><strong>Price: $4.00</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Tropical Smoothie', 4.00)">
-                </td>
+                    <p>Exotic tropical blend</p>
+                    <div class="price-tag">$4.00</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Tropical Smoothie', 4.00)">
+                </div>
+            </div>
 
-                <td>
-                    <img src="/images/Papaya_Smoothie_image.jpg" alt="Papaya Smoothie">
+            <div class="juice-card">
+                <img src="images/Papaya_Smoothie_image.jpg" alt="Papaya Smoothie">
+                <div class="juice-card-content">
                     <h3>Papaya Smoothie</h3>
-                    <p><strong>Price: $6.00</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Papaya Smoothie', 6.00)">
-                </td>
+                    <p>Creamy papaya blend</p>
+                    <div class="price-tag">$6.00</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Papaya Smoothie', 6.00)">
+                </div>
+            </div>
 
-                <td>
-                    <img src="/images/Berry_Smoothie_image.jpg" alt="Berry Smoothie">
+            <div class="juice-card">
+                <img src="images/Berry_Smoothie_image.jpg" alt="Berry Smoothie">
+                <div class="juice-card-content">
                     <h3>Berry Smoothie</h3>
-                    <p><strong>Price: $3.50</strong></p>
-                    <input type="button" value="Order Now" onclick="addToCart('Berry Smoothie', 3.50)">
-                </td>
+                    <p>Mixed berry smoothie</p>
+                    <div class="price-tag">$3.50</div>
+                    <input type="button" class="order-btn" value="Order Now" onclick="addToCart('Berry Smoothie', 3.50)">
+                </div>
+            </div>
+        </div>
+    </div>
 
-            </tr>
-    </table>
-
-
-    <div id="cart" class="div1">
+    <div id="cart">
         <h2>Your Cart</h2>
         <div id="cart-items"></div>
-        <div>
-            <p><strong>Total: $<span id="cart-total">0</span></strong></p>
-            <button onclick="placeOrder()">Order</button>
+        <div class="cart-summary">
+            <p>Total: <span id="cart-total">$0.00</span></p>
+            <button class="order-button" onclick="placeOrder()">Complete Order</button>
             <div id="returnMessage"></div>
         </div>
     </div>
 
-    <footer style="text-align:center; margin-top:16px;">
-        <a href="index.html" style="text-decoration: none; color: #FFFFFF; font-weight: bold;">← Back to Home</a>
+    <footer>
+        <a href="index.html">← Back to Home</a>
     </footer>
 
 </body>

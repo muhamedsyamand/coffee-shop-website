@@ -3,136 +3,514 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="images/logo.png" type="image/x-icon">
-
-
-    <link rel="stylesheet" href="style.css">
-
-    <title>Cofe Shop</title>
+    <link rel="icon" href="images/logo.png">
+    <title>Make a Reservation</title>
 
     <style>
-        body{
-            background-color: #fef5e7;
-            color: #5d4037;
-            font-family: Arial, sans-serif;
-            border-radius: 30px;
-            margin: 10px;
-            padding: 10px;
-            border: medium solid #856929;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        header{
-            text-align: center;
-            background-color: #8d6e63;
+        body {
+            background: linear-gradient(135deg, #f5e6d3 0%, #e8d4bf 100%);
+            color: #333333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-bottom: 80px;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #d4a574 0%, #c99968 100%);
             color: #ffffff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 5px 5px 10px #8d6e63;
-            margin: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.3);
+            border-bottom: 4px solid #8d6e63;
+            animation: headerSlideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        form label,input {
+        @keyframes headerSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 40px;
+            background: linear-gradient(135deg, #ffffff 0%, #f9f6f3 100%);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(212, 165, 116, 0.15);
+            border: 2px solid #d4a574;
+            animation: formSlideIn 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes formSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #d4a574;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            animation: fieldFadeIn 0.6s ease-out backwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.3s; }
+        .form-group:nth-child(2) { animation-delay: 0.4s; }
+        .form-group:nth-child(3) { animation-delay: 0.5s; }
+        .form-group:nth-child(4) { animation-delay: 0.6s; }
+        .form-group:nth-child(5) { animation-delay: 0.7s; }
+        .form-group:nth-child(6) { animation-delay: 0.8s; }
+
+        @keyframes fieldFadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        label {
             display: block;
-            margin-left: 7px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #5d4037;
+            font-size: 1rem;
         }
-        
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #d4a574;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fafaf8;
+            color: #333333;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="time"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #c99968;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+        }
+
+        input[type="text"]::placeholder,
+        textarea::placeholder {
+            color: #999999;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        input[type="button"],
+        input[type="reset"] {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            animation: buttonFadeIn 0.6s ease-out 0.9s both;
+        }
+
+        @keyframes buttonFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        input[type="button"] {
+            background: linear-gradient(135deg, #d4a574 0%, #c99968 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+        }
+
         input[type="button"]:hover {
-            background-color: #d4a373;
+            background: linear-gradient(135deg, #e6b584 0%, #dab578 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(212, 165, 116, 0.4);
         }
-        h1{
-            text-shadow: 3px 1px black;
+
+        input[type="button"]:active {
+            transform: translateY(0);
+        }
+
+        input[type="reset"] {
+            background: linear-gradient(135deg, #b0bec5 0%, #90a4ae 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="reset"]:hover {
+            background: linear-gradient(135deg, #cfd8dc 0%, #b0bec5 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        input[type="reset"]:active {
+            transform: translateY(0);
+        }
+
+        #output {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            animation: messageSlide 0.5s ease-out;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #output.success {
+            display: block;
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #2e7d32;
+            border: 2px solid #76c77d;
+            font-size: 1.1rem;
+        }
+
+        #output.error {
+            display: block;
+            background-color: rgba(244, 67, 54, 0.2);
+            color: #c62828;
+            border: 2px solid #ff5252;
+            font-size: 1rem;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #d4a574 0%, #c99968 100%);
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 -8px 24px rgba(212, 165, 116, 0.3);
+            border-top: 4px solid #8d6e63;
+            animation: footerSlideUp 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes footerSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer h2 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        footer h3 {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        footer a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            animation: linkFade 0.6s ease-out 0.5s both;
+        }
+
+        @keyframes linkFade {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        footer a:hover {
+            transform: translateX(-4px);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                margin: 30px auto;
+                padding: 24px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
         }
     </style>
 
 </head>
 <body>
 
-    <header style="display: flex; align-items: center; justify-content: center; position: relative; background-color: #8d6e63; color: #ffffff; border-radius: 10px; padding: 20px; box-shadow: 5px 5px 10px #8d6e63; margin: 10px;">
-        <h1 style="margin: 0; text-shadow: 3px 1px black;">Make a Reservation</h1>
+    <header>
+        <h1>🍽️ Make a Reservation</h1>
     </header>
 
+    <div class="container">
+        <h2>Book a Table</h2>
+        
+        <form>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" placeholder="Your full name" minlength="3" autofocus required>
+            </div>
 
-    <h1>Book a Table</h1>
-    
-    <form>
-        <label>Name:</label>
-        <input type="text" id="name" placeholder="muhamed syamand"  minlength="7" autofocus required>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" onmouseover="currentdate()" required>
+            </div>
 
-        <br>
-        <label>Date:</label>
-        <input type="date" id="date" onmouseover="currentdate()">
+            <div class="form-group">
+                <label for="time">Time:</label>
+                <input type="time" id="time" required>
+            </div>
 
-        <br>
-        <label>Time:</label>
-        <input type="time" id="time" required>
+            <div class="form-group">
+                <label for="guests">Number of Guests:</label>
+                <input type="number" id="guests" placeholder="1-10" required min="1" max="10">
+            </div>
 
-        <br>
-        <label>Number of Guests:</label>
-        <input type="number" id="guests" required min="1" max="10">
+            <div class="form-group">
+                <label for="requests">Special Requests (optional):</label>
+                <textarea id="requests" placeholder="Tell us about any special preferences, dietary restrictions, or celebratory occasions..."></textarea>
+            </div>
 
-        <br>
-        <label>Special Requests(optional):</label>
-        <textarea placeholder="Write your requests here" rows="5"></textarea>
-          
-        <br>
-        <input type="button" value="Reserve" onclick="handleReserve(this.form)">
+            <div class="button-group">
+                <input type="button" value="Reserve a Table" onclick="handleReserve(this.form)">
+                <input type="reset" value="Clear Form">
+            </div>
 
-        <p id="output"></p>
-    </form>
+            <div id="output"></div>
+        </form>
+    </div>
 
-    <footer style="text-align:center; margin-top:20px;">
-        <h1>Reservation Policies</h1>
-        <h3>You can't book a table for today.</h3>
-        <h3>Please arrive on time. Cancellations must be made 24 hours in advance.</h3>
-        <div style="margin-top:16px;">
-            <a href="index.html" style="text-decoration: none; color: #5d4037; font-weight: bold;">← Back to Home</a>
-        </div>
+    <footer>
+        <h2>Reservation Policies</h2>
+        <h3>📅 You can't book a table for today</h3>
+        <h3>⏰ Please arrive on time for your reservation</h3>
+        <h3>❌ Cancellations must be made 24 hours in advance</h3>
+        <a href="index.html">← Back to Home</a>
     </footer>
     
 </body>
 
 <script>
-    
+
+function pad(n){ return n<10? '0'+n: n }
+
 function currentdate() {
     var today = new Date();
-    var year = today.getFullYear();
-    // months are start with zero
-    var month = today.getMonth() + 1;
-    // because we don't let the user book a table for today
-    var day = today.getDate() + 1 ; 
 
-    // Add leading zero if necessary
-    if (month < 10) {
-        month = '0' + month;
+    // Min date: today (allow same-day bookings)
+    var minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+    // Max date: exactly one calendar month from today
+    function addOneCalendarMonth(d) {
+        var y = d.getFullYear();
+        var nextMonth = d.getMonth() + 1; // zero-based month for Date constructor
+        var day = d.getDate();
+        var candidate = new Date(y, nextMonth, day);
+        if (candidate.getMonth() !== nextMonth) {
+            // day overflowed (next month has fewer days) — use last day of next month
+            candidate = new Date(y, nextMonth + 1, 0);
+        }
+        return candidate;
     }
-    if (day < 10) {
-        day = '0' + day;
-    }
-    document.getElementById('date').min = year + '-' + month + '-' + day;
+
+    var maxDate = addOneCalendarMonth(today);
+
+    var minStr = minDate.getFullYear() + '-' + pad(minDate.getMonth()+1) + '-' + pad(minDate.getDate());
+    var maxStr = maxDate.getFullYear() + '-' + pad(maxDate.getMonth()+1) + '-' + pad(maxDate.getDate());
+
+    var dateInput = document.getElementById('date');
+    dateInput.min = minStr;
+    dateInput.max = maxStr;
 }
 
-    function handleReserve(form){
-        
-        var name = document.getElementById("name").value;
-        var date = document.getElementById("date").value;
-        var time = document.getElementById("time").value;
-        var guests = document.getElementById("guests").value;
-        
-        var output = document.getElementById("output");
+function handleReserve(form) {
+    var name = document.getElementById("name").value.trim();
+    var dateStr = document.getElementById("date").value;
+    var timeStr = document.getElementById("time").value;
+    var guests = document.getElementById("guests").value;
+    var output = document.getElementById("output");
 
-        // Check if any input is invalid or blank
-        if (name == null || date == null || time == null || guests == null || !form.checkValidity()) {
-            
-            alert("Please enter the correct value for all the inputs.");
-            
-            form.reset();
+    var errors = [];
 
-        } else {
-            output.innerHTML = "Reservation successful!";
-            output.style.color = "green";
-            output.style.fontSize = "x-large";
-        }
+    if (!name || name.length === 0) {
+        errors.push("We need your name to complete the reservation");
+    } else if (name.length < 3) {
+        errors.push("Please enter your full name (at least 3 letters)");
     }
 
+    if (!dateStr || dateStr.length === 0) {
+        errors.push("Please pick a date for your reservation");
+    }
+
+    if (!timeStr || timeStr.length === 0) {
+        errors.push("Please choose what time you'd like to dine with us");
+    }
+
+    if (!guests || guests.length === 0) {
+        errors.push("How many people will be dining with you?");
+    } else if (guests < 1 || guests > 10) {
+        errors.push("We can accommodate between 1 and 10 guests per reservation");
+    }
+
+    if (errors.length > 0) {
+        output.className = 'error';
+        output.innerHTML = "<strong>Oops! We need a few things:</strong><br>• " + errors.join("<br>• ");
+        output.style.display = 'block';
+        return;
+    }
+
+    var selectedDate = new Date(dateStr + 'T' + timeStr);
+    var now = new Date();
+
+    // compute max date limit (exactly one calendar month from now, allow full day)
+    function addOneCalendarMonth(d) {
+        var y = d.getFullYear();
+        var nextMonth = d.getMonth() + 1;
+        var day = d.getDate();
+        var candidate = new Date(y, nextMonth, day, 23, 59, 59, 999);
+        if (candidate.getMonth() !== nextMonth) {
+            // next month had fewer days — use last day of next month
+            candidate = new Date(y, nextMonth + 1, 0, 23, 59, 59, 999);
+        }
+        return candidate;
+    }
+
+    var maxLimit = addOneCalendarMonth(now);
+
+    // Check if the selected date is in the past
+    if (selectedDate < now) {
+        var dateParts = dateStr.split('-');
+        var formattedDate = dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0];
+        output.className = 'error';
+        output.innerHTML = "<strong>Time Travel Not Allowed! 🕐</strong><br>We can't book you for " + formattedDate + " at " + timeStr + " because that time has already passed. Please choose a date and time that's coming up soon!";
+        output.style.display = 'block';
+        return;
+    }
+
+    // Check if reservation is within one month
+    if (selectedDate > maxLimit) {
+        var maxParts = [pad(maxLimit.getDate()), pad(maxLimit.getMonth()+1), maxLimit.getFullYear()];
+        var maxFormatted = maxParts[0] + '/' + maxParts[1] + '/' + maxParts[2];
+        output.className = 'error';
+        output.innerHTML = "<strong>Too Far Ahead! 📅</strong><br>Please choose a date no later than " + maxFormatted + " (one month from today).";
+        output.style.display = 'block';
+        return;
+    }
+
+    // Check if reservation is at least 3 hours from now
+    var threeHoursFromNow = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+    if (selectedDate < threeHoursFromNow) {
+        var dateParts = dateStr.split('-');
+        var formattedDate = dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0];
+        output.className = 'error';
+        output.innerHTML = "<strong>We Need More Time to Prepare! ⏱️</strong><br>You've selected " + formattedDate + " at " + timeStr + ", but we need at least 3 hours to prepare everything perfectly for you. Please choose a later time!";
+        output.style.display = 'block';
+        return;
+    }
+
+    var dateParts = dateStr.split('-');
+    var formattedDate = dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0];
+    output.className = 'success';
+    output.innerHTML = "<strong>Excellent Choice! ✅</strong><br>Your table is reserved for " + guests + " guest" + (guests > 1 ? 's' : '') + " on " + formattedDate + " at " + timeStr + ". We're excited to welcome you to Muhamed's Coffee Shop!";
+    output.style.display = 'block';
+    form.reset();
+}
+
 </script>
+
 </html>

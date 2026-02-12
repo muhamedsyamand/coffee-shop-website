@@ -1,285 +1,811 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cofe Shop</title>
-    <link rel="icon" href="images/logo.png" type="image/x-icon">
-    <script src="app.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muhamed's Coffee Shop - Premium Coffee & Treats</title>
+  <link rel="icon" href="images/logo.png" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="app.js"></script>
 
-    <style>
-        /* body */
-        body{
-            background-image: url(images/wallpaperflare.com_wallpaper.jpg);
-            background-repeat: repeat-y;
-            background-size: contain;
-            
-            background-color: #F5F5DC;
-            color: #856929;
-            font-family: Arial, sans-serif;
-            border-radius: 30px;
-            margin: 10px;
-            padding: 10px;
-            border: medium solid #856929;
-        }
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f0e8e0 0%, #e8dcc8 100%);
+      color: #2d1f1f;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden; /* ✅ prevent mobile horizontal scroll */
+    }
 
-        /* header */
-        header {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: white;
-            padding: 10px;
-            
-        }
+    /* Header Section */
+    header {
+      background: linear-gradient(135deg, #2d1f1f 0%, #3b2f2f 50%, #4a3a3a 100%);
+      color: #f0e8e0;
+      padding: 90px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.22);
+      animation: headerSlideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
 
-        header img {
-            height: 200px;
-            width: 200px;
-            border-radius: 50%;
-        }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
 
-        header div {
-            flex-grow: 1;
-            flex-shrink: 1;
-            flex-basis: 0%;
-        }
+    /* Top navigation inside header (larger, prominent) */
+    .top-nav{
+      position:absolute;
+      top:22px;
+      right:28px;
+      z-index:2;
+      display:flex;
+      gap:18px;
+      align-items:center;
+      flex-wrap: wrap;                 /* ✅ allow wrapping */
+      justify-content:flex-end;
+      max-width: calc(100% - 40px);    /* ✅ prevent overflow */
+    }
+    .top-nav a{
+      color:#ffffff;
+      text-decoration:none;
+      padding:14px 22px;
+      border-radius:16px;
+      background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      font-weight:800;
+      font-size:1.12rem;
+      box-shadow:0 8px 26px rgba(0,0,0,0.2);
+      transition:all .18s ease;
+      white-space: nowrap;
+    }
+    .top-nav a:hover{
+      background:linear-gradient(90deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
+      transform:translateY(-4px);
+      box-shadow:0 14px 36px rgba(0,0,0,0.26)
+    }
 
-        /* Featured Items */
-        h1{
-            text-align: center;
-        }
+    /* ✅ Changed from custom <header-content> element to a class for better semantics */
+    .header-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
 
-        .img1{
-            width: 200px;
-            height: 300px;  
-            border-radius: 20px;
-        }
-        
-        .d1{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-evenly;
-        }
+    header img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 6px solid #d4a574;
+      box-shadow: 0 14px 56px rgba(0,0,0,0.32);
+      transition: transform 0.28s ease;
+      animation: logoBouncIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.7s;
+      max-width: 100%;
+      height: auto;
+    }
 
-        hr{
-            margin: 10px; 
-        }
-        a:hover{
-            transform: scale(1.1);
-            transition: all 0.5s;
-            cursor: pointer;
-        }
+    header img:hover { transform: scale(1.05) rotateZ(5deg); }
 
+    header .header-text { max-width: 500px; }
 
-        /* footer */
-        footer{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-evenly;
-        }
-        footer a{
-            /* background-color: #aaaaff; */
-            border-radius: 20px;
-            padding: 5px;
-        }   
+    header h1 {
+      font-size: 3.4rem;
+      margin-bottom: 12px;
+      color: #d4a574;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.35);
+      font-weight: 800;
+      letter-spacing: 1px;
+      animation: titleFadeIn 1s ease-out 0.3s forwards;
+      opacity: 0;
+    }
 
-        a:link{
-            text-decoration: none;
-            color:peru;
-        }
-        a:visited{
-            color: powderblue;
-        }
+    header h2 {
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: #c99968;
+      font-style: italic;
+      letter-spacing: 1px;
+      animation: subtitleFadeIn 1s ease-out 0.5s forwards;
+      opacity: 0;
+    }
 
-        .feature{
-            color: powderblue;
-        }
+    /* Featured Items Section */
+    .featured-section {
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
 
-        /* Floating Cart Button */
-        .cart-button {
-            position: fixed;
-            bottom: 30px;
-            right: 20px;
-            background-color: #856929;
-            color: white;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            z-index: 999;
-            transition: all 0.3s;
-        }
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #2d1f1f;
+      margin-bottom: 50px;
+      position: relative;
+      padding-bottom: 20px;
+      animation: titleSlideUp 0.8s ease-out;
+    }
 
-        .cart-button:hover {
-            background-color: #654321;
-            transform: scale(1.1);
-        }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 4px;
+      background: linear-gradient(90deg, #d4a574, #c99968);
+      border-radius: 2px;
+      animation: underlineExpand 0.8s ease-out 0.3s forwards;
+      width: 0;
+    }
 
-        .cart-button .badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: red;
-            color: white;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-        }
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      margin-bottom: 60px;
+    }
 
-        /* Cart Modal */
-        .cart-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
+    .featured-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: #2d1f1f;
+      display: flex;
+      flex-direction: column;
+      animation: cardSlideIn 0.6s ease-out forwards;
+      opacity: 0;
+    }
 
-        .cart-modal-content {
-            background-color: #f4f4f4;
-            margin: 50px auto;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
+    .featured-card:nth-child(1) { animation-delay: 0.1s; }
+    .featured-card:nth-child(2) { animation-delay: 0.2s; }
+    .featured-card:nth-child(3) { animation-delay: 0.3s; }
+    .featured-card:nth-child(4) { animation-delay: 0.4s; }
 
-        .cart-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+    .featured-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 40px rgba(212, 165, 116, 0.2);
+    }
 
-        .close-cart {
-            font-size: 2rem;
-            cursor: pointer;
-            color: #856929;
-        }
+    .featured-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      max-width: 100%;
+    }
 
-        .close-cart:hover {
-            color: #654321;
-        }
+    .featured-card:hover img { transform: scale(1.08); }
 
-        .cart-item-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            align-items: center;
-        }
+    .featured-card-content {
+      padding: 30px 20px;
+      text-align: center;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
-        .cart-total-section {
-            margin-top: 20px;
-            text-align: center;
-            padding: 15px;
-            border-top: 2px solid #856929;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
+    .featured-card h3 {
+      font-size: 1.8rem;
+      color: #2d1f1f;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
 
-        .checkout-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #856929;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+    .featured-card p {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+    }
 
-        .checkout-btn:hover {
-            background-color: #654321;
-        }
+    .card-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #d4a574, #c99968);
+      color: white;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      align-self: center;
+      position: relative;
+      overflow: hidden;
+    }
 
-        @media (max-width: 600px) {
-            .cart-button {
-                bottom: 20px;
-                right: 10px;
-                padding: 12px 16px;
-                font-size: 1rem;
-            }
-            .cart-modal-content {
-                margin: 100px auto;
-                width: 95%;
-            }
-        }
-    </style>
+    .card-button:hover {
+      background: linear-gradient(135deg, #c99968, #b88860);
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(212, 165, 116, 0.3);
+    }
+
+    .card-button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .card-button:active::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    /* Cart Display Section */
+    .cart-display-section {
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      margin-bottom: 60px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      border-top: 4px solid #d4a574;
+      animation: sectionFadeInUp 0.8s ease-out 0.3s both;
+    }
+
+    .cart-display-section h3 {
+      font-size: 1.8rem;
+      color: #2d1f1f;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    #cart-checkout-section {
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 2px solid #d4a574;
+    }
+
+    #cart-display-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+      min-height: 100px;
+    }
+
+    .cart-item-card {
+      background: linear-gradient(135deg, #f9f7f4 0%, #f0e8e0 100%);
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      border: 2px solid #d4a574;
+      position: relative;
+      transition: all 0.3s ease;
+      animation: cartItemBounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    }
+
+    .cart-item-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(212, 165, 116, 0.2);
+    }
+
+    .cart-item-card strong {
+      display: block;
+      color: #2d1f1f;
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+    }
+
+    .cart-item-card span {
+      color: #c99968;
+      font-weight: 600;
+    }
+
+    .remove-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .remove-btn:hover {
+      background: #c0392b;
+      transform: scale(1.1);
+    }
+
+    .cart-empty-message {
+      text-align: center;
+      color: #999;
+      padding: 40px 20px;
+      font-size: 1.1rem;
+    }
+
+    .cart-total-display {
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #2d1f1f;
+      margin-bottom: 20px;
+    }
+
+    .cart-total-display span { color: #d4a574; }
+
+    /* Footer Section */
+    footer {
+      background: linear-gradient(135deg, #2d1f1f 0%, #3b2f2f 100%);
+      padding: 60px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      justify-items: center;
+      box-shadow: 0 -8px 32px rgba(0,0,0,0.15);
+      animation: footerSlideUp 0.8s ease-out 0.6s both;
+    }
+
+    footer a {
+      text-decoration: none;
+      color: white;
+      transition: all 0.3s ease;
+      display: block;
+      text-align: center;
+      animation: footerLinkFadeIn 0.6s ease-out forwards;
+      opacity: 0;
+    }
+
+    footer a:nth-child(1) { animation-delay: 0.7s; }
+    footer a:nth-child(2) { animation-delay: 0.8s; }
+    footer a:nth-child(3) { animation-delay: 0.9s; }
+
+    footer a h3 {
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, #d4a574, #c99968);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      padding: 15px 30px;
+      border-radius: 25px;
+      border: 2px solid #d4a574;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    footer a:hover h3 {
+      background: linear-gradient(135deg, #c99968, #b88860);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      border-color: #c99968;
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(212, 165, 116, 0.3);
+    }
+
+    /* Cart Modal */
+    .cart-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .cart-modal-content {
+      background: white;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 15px;
+      width: min(700px, 92vw);
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .cart-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #d4a574;
+      padding-bottom: 15px;
+    }
+
+    .cart-modal-header h2 {
+      color: #2d1f1f;
+      font-size: 1.8rem;
+    }
+
+    .close-cart {
+      font-size: 2.5rem;
+      cursor: pointer;
+      color: #d4a574;
+      transition: all 0.2s ease;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .close-cart:hover {
+      color: #c99968;
+      transform: rotate(90deg);
+    }
+
+    .cart-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #e8dcc8;
+      background: #f9f7f4;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      transition: all 0.2s ease;
+      animation: cartRowSlideIn 0.4s ease-out backwards;
+    }
+
+    .cart-item-row:hover { background: #f0e8e0; }
+
+    .cart-item-info { flex: 1; }
+
+    .cart-item-name {
+      font-weight: 600;
+      color: #2d1f1f;
+      margin-bottom: 5px;
+    }
+
+    .cart-item-price { color: #c99968; font-weight: 600; }
+
+    .cart-remove-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 600;
+    }
+
+    .cart-remove-btn:hover {
+      background: #c0392b;
+      transform: scale(1.05);
+    }
+
+    .cart-total-section {
+      margin-top: 30px;
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #f9f7f4, #f0e8e0);
+      border-radius: 10px;
+      border: 2px solid #d4a574;
+    }
+
+    .cart-total-section h3 {
+      font-size: 1.4rem;
+      color: #2d1f1f;
+      margin-bottom: 10px;
+    }
+
+    .cart-total-section span {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #d4a574;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #d4a574, #c99968);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 20px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .checkout-btn:hover {
+      background: linear-gradient(135deg, #c99968, #b88860);
+      transform: scale(1.02);
+      box-shadow: 0 8px 20px rgba(212, 165, 116, 0.3);
+    }
+
+    #modal-order-message {
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .error-message {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Animations */
+    @keyframes headerSlideDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes titleFadeIn {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes subtitleFadeIn {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes logoBouncIn {
+      0% { opacity: 0; transform: scale(0.3) rotateZ(-180deg); }
+      50% { opacity: 1; }
+      100% { opacity: 1; transform: scale(1) rotateZ(0deg); }
+    }
+
+    @keyframes titleSlideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes underlineExpand { from { width: 0; } to { width: 80px; } }
+
+    @keyframes cardSlideIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes cartItemBounceIn {
+      0% { opacity: 0; transform: scale(0.3) rotateZ(-180deg); }
+      50% { opacity: 1; }
+      100% { opacity: 1; transform: scale(1) rotateZ(0deg); }
+    }
+
+    @keyframes sectionFadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes footerSlideUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes footerLinkFadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes cartRowSlideIn {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Smooth Scroll */
+    html { scroll-behavior: smooth; }
+
+    /* ✅ Responsive Design */
+    @media (max-width: 900px){
+      header { padding: 80px 18px; }
+      .top-nav { right: 18px; top: 16px; gap: 12px; }
+      .top-nav a { padding: 12px 18px; font-size: 1rem; }
+      header h1 { font-size: 2.6rem; }
+      header img { width: 170px; height: 170px; }
+      .featured-section { margin: 50px auto; }
+      .featured-grid { gap: 24px; }
+      .featured-card img { height: 220px; }
+      .cart-display-section { padding: 26px; }
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 70px 16px 50px; }
+
+      /* ✅ nav becomes normal flow, wraps, centered */
+      .top-nav{
+        position: static;
+        margin: 0 auto 18px;
+        justify-content: center;
+        max-width: 100%;
+      }
+
+      .header-content{
+        flex-direction: column;
+        gap: 18px;
+        text-align: center;
+      }
+
+      header .header-text { max-width: 92vw; }
+
+      header h1 { font-size: 2.1rem; }
+      header h2 { font-size: 1.05rem; }
+      header img { width: 140px; height: 140px; }
+
+      .featured-grid { grid-template-columns: 1fr; gap: 18px; }
+      .featured-card img { height: 200px; }
+
+      .section-title { font-size: 2rem; margin-bottom: 30px; }
+      .featured-section { margin: 40px auto; }
+
+      .cart-modal-content { margin: 90px 10px; width: 95%; padding: 20px; max-height: 82vh; }
+
+      footer { grid-template-columns: 1fr; gap: 20px; padding: 40px 15px; }
+
+      #cart-display-container { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    }
+
+    @media (max-width: 480px) {
+      header { padding: 60px 14px 40px; }
+      .top-nav a { padding: 10px 14px; font-size: 0.95rem; border-radius: 14px; }
+
+      header h1 { font-size: 1.6rem; }
+      header h2 { font-size: 1rem; }
+      header img { width: 110px; height: 110px; }
+
+      .featured-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 1.6rem; margin-bottom: 20px; }
+
+      footer a h3 { font-size: 1.1rem; padding: 12px 20px; }
+
+      #cart-display-container { grid-template-columns: 1fr; }
+      .cart-display-section { padding: 18px; }
+    }
+  </style>
 </head>
 
-
-
 <body>
-    
-    <header>
-        <div>
-            <h1>Welcome to my Cofe Shop</h1>
-            <h2><q>Your cozy spot for the best coffee and treats in town.</q></h2>
-        </div>
-        <img src="/images/cofe_logo.webp" alt="Coffee Cup Icon">
-    </header>
-
-    
-    <hr>
-
-
-    <div>
-    <h1 class="feature">Featured Items</h1>
-    <br>
-        <div class="d1">
-            <a href="coffeelist.html" target="_self"><img src="images/cofe_image.jpg" alt="Coffee Cup" class="img1"><br>  <h1>Coffee</h1>  </a>
-            <a href="cakelist.html" target="_self" ><img src="images/cake-image.jpg" alt="cake" class="img1"><br>  <h1>Cake</h1>  </a>
-            <a href="icecreamlist.html" target="_self" ><img src="images/ice_cream.jpg" alt="ice cream" class="img1"><br>  <h1>Ice Cream</h1>  </a>
-            <a href="juicelist.html" target="_self" ><img src="images/orange_juice.jpg" alt="juice" class="img1"><br>  <h1>Juice</h1>  </a>
-        </div>
+  <!-- Header -->
+  <header>
+    <div class="top-nav">
+      <a href="reservation.html">📅 Reservation</a>
+      <a href="contact_us.html">📞 Contact</a>
+      <a href="about_us.html">ℹ️ About</a>
     </div>
 
-    <hr>
-    
-    <footer>
-        <a href="reservation.html" target="_self">  <h1>Make a Reservation</h1>  </a>
-
-        <a href="contact_us.html" target="_self">  <h1>Contact Us</h1>  </a>
-
-        <a href="about_us.html" target="_self">  <h1>About us</h1>  </a>
-    </footer>
-
-    <!-- Floating Cart Button -->
-    <button class="cart-button" onclick="openCartModal()" style="display:none;">
-        🛒 Cart
-        <span class="badge" id="cart-badge" style="display:none;">0</span>
-    </button>
-
-    <!-- Cart Modal -->
-    <div id="cartModal" class="cart-modal">
-        <div class="cart-modal-content">
-            <div class="cart-modal-header">
-                <h2>Your Cart</h2>
-                <span class="close-cart" onclick="closeCartModal()">&times;</span>
-            </div>
-            <div id="modal-cart-items"></div>
-            <div class="cart-total-section">
-                Total: $<span id="modal-cart-total">0.00</span>
-            </div>
-            <button class="checkout-btn" onclick="placeOrder()">Place Order</button>
-            <div id="modal-order-message" style="margin-top: 10px; text-align: center;"></div>
-        </div>
+    <div class="header-content">
+      <div class="header-text">
+        <h1>☕ Muhamed's Coffee Shop</h1>
+        <h2>"Your cozy spot for the best coffee & treats in town"</h2>
+      </div>
+      <img src="images/cofe_logo.webp" alt="Coffee Cup Icon" />
     </div>
+  </header>
 
+  <!-- Featured Items Section -->
+  <section class="featured-section">
+    <h2 class="section-title">Featured Items</h2>
+    <div class="featured-grid">
+      <a href="coffeelist.html" class="featured-card">
+        <img src="images/cofe_image.jpg" alt="Premium Coffee" />
+        <div class="featured-card-content">
+          <h3>☕ Coffee</h3>
+          <p>Expertly brewed with premium beans</p>
+          <button class="card-button">Browse Coffee</button>
+        </div>
+      </a>
+
+      <a href="cakelist.html" class="featured-card">
+        <img src="images/cake-image.jpg" alt="Delicious Cake" />
+        <div class="featured-card-content">
+          <h3>🎂 Cake</h3>
+          <p>Fresh baked daily with finest ingredients</p>
+          <button class="card-button">Browse Cakes</button>
+        </div>
+      </a>
+
+      <a href="icecreamlist.html" class="featured-card">
+        <img src="images/ice_cream.jpg" alt="Ice Cream" />
+        <div class="featured-card-content">
+          <h3>🍦 Ice Cream</h3>
+          <p>Creamy and delicious flavors</p>
+          <button class="card-button">Browse Ice Cream</button>
+        </div>
+      </a>
+
+      <a href="juicelist.html" class="featured-card">
+        <img src="images/orange_juice.jpg" alt="Fresh Juice" />
+        <div class="featured-card-content">
+          <h3>🧃 Juice</h3>
+          <p>Freshly squeezed natural juices</p>
+          <button class="card-button">Browse Juice</button>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Cart Display Section -->
+  <section class="featured-section">
+    <div class="cart-display-section">
+      <h3>🛒 Your Shopping Cart</h3>
+      <div id="cart-display-container" class="cart-empty-message">Your cart is empty. Start shopping!</div>
+      <div style="display:none;" id="cart-checkout-section">
+        <div id="cart-total-display" class="cart-total-display">
+          Total: <span>$0.00</span>
+        </div>
+        <button class="checkout-btn" onclick="placeOrder()">Place Order</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <p style="color:#f0e8e0;opacity:.9;margin:0;padding:10px 0;text-align:center">
+      © <span id="year"></span> Muhamed's Coffee — All Rights Reserved.
+    </p>
+
+    <p style="color:#f0e8e0;opacity:.75;margin:0;padding:0 0 10px;text-align:center;font-size:0.95rem">
+      Made by <strong style="color:#d4a574;">Muhamed Syamand</strong>
+    </p>
+  </footer>
+
+  <!-- Cart Modal -->
+  <div id="cartModal" class="cart-modal">
+    <div class="cart-modal-content">
+      <div class="cart-modal-header">
+        <h2>Your Shopping Cart</h2>
+        <button class="close-cart" onclick="closeCartModal()">&times;</button>
+      </div>
+
+      <div id="modal-cart-items"></div>
+
+      <div class="cart-total-section">
+        <h3>Order Total</h3>
+        <span>$<span id="modal-cart-total">0.00</span></span>
+      </div>
+
+      <button class="checkout-btn" onclick="placeOrder()">Place Order</button>
+      <div id="modal-order-message" style="margin-top: 10px; text-align: center;"></div>
+    </div>
+  </div>
+
+  <script>
+    // small helper for footer year (optional)
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
