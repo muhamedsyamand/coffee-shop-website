@@ -191,7 +191,8 @@
             box-shadow: 0 6px 16px rgba(212, 165, 116, 0.4);
         }
 
-        input[type="button"]:active {
+        input[type="button"]:active,
+        input[type="reset"]:active {
             transform: translateY(0);
         }
 
@@ -205,10 +206,6 @@
             background: linear-gradient(135deg, #cfd8dc 0%, #b0bec5 100%);
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-        }
-
-        input[type="reset"]:active {
-            transform: translateY(0);
         }
 
         #output {
@@ -387,7 +384,32 @@
 
 <script>
 
-function pad(n){ return n<10? '0'+n: n }
+function pad(n) {
+    return n < 10 ? '0' + n : n;
+}
+
+function formatDisplayDate(yyyyMmDd) {
+    var parts = yyyyMmDd.split('-');
+    return parts[2] + '/' + parts[1] + '/' + parts[0];
+}
+
+// add exactly one calendar month, handling month length differences
+function addOneCalendarMonth(d, endOfDay) {
+    var y = d.getFullYear();
+    var nextMonth = d.getMonth() + 1;
+    var day = d.getDate();
+    var hours = endOfDay ? 23 : 0;
+    var mins = endOfDay ? 59 : 0;
+    var secs = endOfDay ? 59 : 0;
+    var ms = endOfDay ? 999 : 0;
+
+    var candidate = new Date(y, nextMonth, day, hours, mins, secs, ms);
+    if (candidate.getMonth() !== nextMonth) {
+        // next month had fewer days — use last day of next month
+        candidate = new Date(y, nextMonth + 1, 0, hours, mins, secs, ms);
+    }
+    return candidate;
+}
 
 function currentdate() {
     var today = new Date();
@@ -396,22 +418,10 @@ function currentdate() {
     var minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
     // Max date: exactly one calendar month from today
-    function addOneCalendarMonth(d) {
-        var y = d.getFullYear();
-        var nextMonth = d.getMonth() + 1; // zero-based month for Date constructor
-        var day = d.getDate();
-        var candidate = new Date(y, nextMonth, day);
-        if (candidate.getMonth() !== nextMonth) {
-            // day overflowed (next month has fewer days) — use last day of next month
-            candidate = new Date(y, nextMonth + 1, 0);
-        }
-        return candidate;
-    }
+    var maxDate = addOneCalendarMonth(today, false);
 
-    var maxDate = addOneCalendarMonth(today);
-
-    var minStr = minDate.getFullYear() + '-' + pad(minDate.getMonth()+1) + '-' + pad(minDate.getDate());
-    var maxStr = maxDate.getFullYear() + '-' + pad(maxDate.getMonth()+1) + '-' + pad(maxDate.getDate());
+    var minStr = minDate.getFullYear() + '-' + pad(minDate.getMonth() + 1) + '-' + pad(minDate.getDate());
+    var maxStr = maxDate.getFullYear() + '-' + pad(maxDate.getMonth() + 1) + '-' + pad(maxDate.getDate());
 
     var dateInput = document.getElementById('date');
     dateInput.min = minStr;
@@ -457,25 +467,12 @@ function handleReserve(form) {
     var selectedDate = new Date(dateStr + 'T' + timeStr);
     var now = new Date();
 
-    // compute max date limit (exactly one calendar month from now, allow full day)
-    function addOneCalendarMonth(d) {
-        var y = d.getFullYear();
-        var nextMonth = d.getMonth() + 1;
-        var day = d.getDate();
-        var candidate = new Date(y, nextMonth, day, 23, 59, 59, 999);
-        if (candidate.getMonth() !== nextMonth) {
-            // next month had fewer days — use last day of next month
-            candidate = new Date(y, nextMonth + 1, 0, 23, 59, 59, 999);
-        }
-        return candidate;
-    }
-
-    var maxLimit = addOneCalendarMonth(now);
+   // compute max date limit (exactly one calendar month from now, allow full day)
+    var maxLimit = addOneCalendarMonth(now, true);
 
     // Check if the selected date is in the past
     if (selectedDate < now) {
-        var dateParts = dateStr.split('-');
-        var formattedDate = dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0];
+        var formattedDate = formatDisplayDate(dateStr);
         output.className = 'error';
         output.innerHTML = "<strong>Time Travel Not Allowed! 🕐</strong><br>We can't book you for " + formattedDate + " at " + timeStr + " because that time has already passed. Please choose a date and time that's coming up soon!";
         output.style.display = 'block';
@@ -484,8 +481,7 @@ function handleReserve(form) {
 
     // Check if reservation is within one month
     if (selectedDate > maxLimit) {
-        var maxParts = [pad(maxLimit.getDate()), pad(maxLimit.getMonth()+1), maxLimit.getFullYear()];
-        var maxFormatted = maxParts[0] + '/' + maxParts[1] + '/' + maxParts[2];
+        var maxFormatted = pad(maxLimit.getDate()) + '/' + pad(maxLimit.getMonth() + 1) + '/' + maxLimit.getFullYear();
         output.className = 'error';
         output.innerHTML = "<strong>Too Far Ahead! 📅</strong><br>Please choose a date no later than " + maxFormatted + " (one month from today).";
         output.style.display = 'block';
@@ -495,16 +491,14 @@ function handleReserve(form) {
     // Check if reservation is at least 3 hours from now
     var threeHoursFromNow = new Date(now.getTime() + 3 * 60 * 60 * 1000);
     if (selectedDate < threeHoursFromNow) {
-        var dateParts = dateStr.split('-');
-        var formattedDate = dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0];
+        var formattedDateSoon = formatDisplayDate(dateStr);
         output.className = 'error';
-        output.innerHTML = "<strong>We Need More Time to Prepare! ⏱️</strong><br>You've selected " + formattedDate + " at " + timeStr + ", but we need at least 3 hours to prepare everything perfectly for you. Please choose a later time!";
+        output.innerHTML = "<strong>We Need More Time to Prepare! ⏱️</strong><br>You've selected " + formattedDateSoon + " at " + timeStr + ", but we need at least 3 hours to prepare everything perfectly for you. Please choose a later time!";
         output.style.display = 'block';
         return;
     }
 
-    var dateParts = dateStr.split('-');
-    var formattedDate = dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0];
+    var formattedDate = formatDisplayDate(dateStr);
     output.className = 'success';
     output.innerHTML = "<strong>Excellent Choice! ✅</strong><br>Your table is reserved for " + guests + " guest" + (guests > 1 ? 's' : '') + " on " + formattedDate + " at " + timeStr + ". We're excited to welcome you to Muhamed's Coffee Shop!";
     output.style.display = 'block';

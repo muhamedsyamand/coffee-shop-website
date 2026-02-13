@@ -6,7 +6,7 @@
   <title>Muhamed's Coffee Shop - Premium Coffee & Treats</title>
   <link rel="icon" href="images/logo.png" type="image/x-icon" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <script src="app.js"></script>
+  <script src="app.js" defer></script>
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -17,7 +17,7 @@
       color: #2d1f1f;
       line-height: 1.6;
       min-height: 100vh;
-      overflow-x: hidden; /* ✅ prevent mobile horizontal scroll */
+      overflow-x: hidden;
     }
 
     /* Header Section */
@@ -41,6 +41,7 @@
       height: 500px;
       background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
       border-radius: 50%;
+      pointer-events: none;
     }
 
     /* Top navigation inside header (larger, prominent) */
@@ -648,7 +649,10 @@
 
       /* ✅ nav becomes normal flow, wraps, centered */
       .top-nav{
-        position: static;
+        position: relative;
+        top: auto;
+        right: auto;
+        z-index: 3;
         margin: 0 auto 18px;
         justify-content: center;
         max-width: 100%;
@@ -761,8 +765,8 @@
   <!-- Cart Display Section -->
   <section class="featured-section">
     <div class="cart-display-section">
-      <h3>🛒 Your Shopping Cart</h3>
-      <div id="cart-display-container" class="cart-empty-message">Your cart is empty. Start shopping!</div>
+      <h3>🛒 Your Order Cart</h3>
+      <div id="cart-display-container" class="cart-empty-message">Your cart is empty. Start ordering!</div>
       <div style="display:none;" id="cart-checkout-section">
         <div id="cart-total-display" class="cart-total-display">
           Total: <span>$0.00</span>
@@ -771,7 +775,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- Footer Section -->
   <footer>
     <p style="color:#f0e8e0;opacity:.9;margin:0;padding:10px 0;text-align:center">
@@ -779,19 +783,24 @@
     </p>
 
     <p style="color:#f0e8e0;opacity:.75;margin:0;padding:0 0 10px;text-align:center;font-size:0.95rem">
-      Made by <strong style="color:#d4a574;">Muhamed Syamand</strong>
+      Developed by <strong style="color:#d4a574;">Muhamed Syamand</strong>
     </p>
   </footer>
 
   <!-- Cart Modal -->
   <div id="cartModal" class="cart-modal">
-    <div class="cart-modal-content">
+    <div
+      class="cart-modal-content"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cartModalTitle"
+    >
       <div class="cart-modal-header">
-        <h2>Your Shopping Cart</h2>
+        <h2 id="cartModalTitle">Your Order Cart</h2>
         <button class="close-cart" onclick="closeCartModal()">&times;</button>
       </div>
 
-      <div id="modal-cart-items"></div>
+      <div id="modal-cart-items" role="list"></div>
 
       <div class="cart-total-section">
         <h3>Order Total</h3>

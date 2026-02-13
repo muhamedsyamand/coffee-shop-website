@@ -1,12 +1,33 @@
+const CART_STORAGE_KEY = 'shopCart';
+const TOTAL_STORAGE_KEY = 'shopTotal';
+
 let cart = [];
 let total = 0;
 
+function getOrderMessageElement() {
+    return document.getElementById('returnMessage') || document.getElementById('modal-order-message');
+}
+
+function setOrderMessage(message, color, fontSize) {
+    const output = getOrderMessageElement();
+    if (!output) {
+        return;
+    }
+
+    output.innerHTML = message;
+    output.style.color = color;
+
+    if (fontSize) {
+        output.style.fontSize = fontSize;
+    }
+}
+
 // Load cart from localStorage on page load
 function loadCart() {
-    const savedCart = localStorage.getItem('shopCart');
+    const savedCart = localStorage.getItem(CART_STORAGE_KEY);
     if (savedCart) {
         cart = JSON.parse(savedCart);
-        total = parseFloat(localStorage.getItem('shopTotal')) || 0;
+        total = parseFloat(localStorage.getItem(TOTAL_STORAGE_KEY)) || 0;
         renderCart();
     }
     updateCartBadge();
@@ -14,8 +35,8 @@ function loadCart() {
 
 // Save cart to localStorage
 function saveCart() {
-    localStorage.setItem('shopCart', JSON.stringify(cart));
-    localStorage.setItem('shopTotal', total.toFixed(2));
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    localStorage.setItem(TOTAL_STORAGE_KEY, total.toFixed(2));
     updateCartBadge();
 }
 
@@ -23,16 +44,22 @@ function saveCart() {
 function updateCartBadge() {
     const badge = document.getElementById('cart-badge');
     const cartBtn = document.querySelector('.cart-button');
+
     if (badge) {
         if (cart.length > 0) {
             badge.textContent = cart.length;
             badge.style.display = 'flex';
-            if (cartBtn) cartBtn.style.display = 'block';
+            if (cartBtn) {
+                cartBtn.style.display = 'block';
+            }
         } else {
             badge.style.display = 'none';
-            if (cartBtn) cartBtn.style.display = 'none';
+            if (cartBtn) {
+                cartBtn.style.display = 'none';
+            }
         }
     }
+
     updateCartDisplay();
 }
 
@@ -40,43 +67,51 @@ function updateCartBadge() {
 function updateCartDisplay() {
     const container = document.getElementById('cart-display-container');
     const checkoutSection = document.getElementById('cart-checkout-section');
-    
-    if (!container) return;
-    
+
+    if (!container) {
+        return;
+    }
+
     container.innerHTML = '';
-    
+
     if (cart.length === 0) {
-        container.innerHTML = `<div class="cart-empty-message">Your cart is empty. Start shopping!</div>`;
-        if (checkoutSection) checkoutSection.style.display = 'none';
-    } else {
-        // Display cart items as cards
-        cart.forEach((item, index) => {
-            const cartItemCard = document.createElement('div');
-            cartItemCard.className = 'cart-item-card';
-            
-            cartItemCard.innerHTML = `
-                <button class="remove-btn" onclick="removeFromCart(${index})">×</button>
-                <strong>${item.name}</strong>
-                <span>$${item.price.toFixed(2)}</span>
-            `;
-            container.appendChild(cartItemCard);
-        });
-        
-        // Update total and show checkout section
-        const totalAmount = document.querySelector('#cart-checkout-section .cart-total-display span');
-        if (totalAmount) {
-            totalAmount.textContent = '$' + total.toFixed(2);
+        container.innerHTML = '<div class="cart-empty-message">Your cart is empty. Start shopping!</div>';
+        if (checkoutSection) {
+            checkoutSection.style.display = 'none';
         }
-        if (checkoutSection) checkoutSection.style.display = 'block';
+        return;
+    }
+
+    cart.forEach((item, index) => {
+        const cartItemCard = document.createElement('div');
+        cartItemCard.className = 'cart-item-card';
+        cartItemCard.innerHTML = `
+            <button class="remove-btn" onclick="removeFromCart(${index})">&times;</button>
+            <strong>${item.name}</strong>
+            <span>$${item.price.toFixed(2)}</span>
+        `;
+        container.appendChild(cartItemCard);
+    });
+
+    const totalAmount = document.querySelector('#cart-checkout-section .cart-total-display span');
+    if (totalAmount) {
+        totalAmount.textContent = '$' + total.toFixed(2);
+    }
+
+    if (checkoutSection) {
+        checkoutSection.style.display = 'block';
     }
 }
 
 // Render cart on product pages
 function renderCart() {
     const cartItems = document.getElementById('cart-items');
-    if (!cartItems) return;
-    
+    if (!cartItems) {
+        return;
+    }
+
     cartItems.innerHTML = '';
+
     if (cart.length === 0) {
         const emptyState = document.createElement('div');
         emptyState.className = 'text-center py-8 text-gray-500';
@@ -85,15 +120,14 @@ function renderCart() {
     } else {
         const itemsGrid = document.createElement('div');
         itemsGrid.className = 'space-y-2';
-        
+
         cart.forEach((item, index) => {
             const cartItemCard = document.createElement('div');
             cartItemCard.className = 'bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200 rounded-lg p-3 flex items-center justify-between hover:shadow-md transition-all duration-200';
-            
             cartItemCard.innerHTML = `
                 <div class="flex items-center gap-3 flex-1">
                     <div class="w-10 h-10 rounded bg-gradient-to-br from-orange-400 to-amber-400 flex items-center justify-center text-white text-sm font-bold">
-                        ☕
+                        &#9749;
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="font-semibold text-gray-800 text-sm">${item.name}</p>
@@ -104,18 +138,25 @@ function renderCart() {
             `;
             itemsGrid.appendChild(cartItemCard);
         });
-        
+
         cartItems.appendChild(itemsGrid);
     }
-    document.getElementById('cart-total').textContent = total.toFixed(2);
+
+    const totalElement = document.getElementById('cart-total');
+    if (totalElement) {
+        totalElement.textContent = total.toFixed(2);
+    }
 }
 
 // Render cart in modal (home page)
 function renderCartModal() {
     const modalCartItems = document.getElementById('modal-cart-items');
-    if (!modalCartItems) return;
-    
+    if (!modalCartItems) {
+        return;
+    }
+
     modalCartItems.innerHTML = '';
+
     if (cart.length === 0) {
         modalCartItems.innerHTML = `
             <div class="flex flex-col items-center justify-center py-16 text-center">
@@ -128,11 +169,10 @@ function renderCartModal() {
     } else {
         const itemsGrid = document.createElement('div');
         itemsGrid.className = 'grid grid-cols-1 gap-3';
-        
+
         cart.forEach((item, index) => {
             const cartItemCard = document.createElement('div');
             cartItemCard.className = 'bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200 rounded-xl p-4 flex items-center justify-between hover:shadow-md transition-all duration-200 group';
-            
             cartItemCard.innerHTML = `
                 <div class="flex items-center gap-4 flex-1">
                     <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-orange-300 to-amber-300 flex items-center justify-center text-white shadow-md flex-shrink-0">
@@ -149,32 +189,36 @@ function renderCartModal() {
             `;
             itemsGrid.appendChild(cartItemCard);
         });
-        
+
         modalCartItems.appendChild(itemsGrid);
         lucide.createIcons();
     }
-    document.getElementById('modal-cart-total').innerHTML = total.toFixed(2);
+
+    const modalCartTotal = document.getElementById('modal-cart-total');
+    if (modalCartTotal) {
+        modalCartTotal.textContent = total.toFixed(2);
+    }
 }
 
-// Open cart modal
-// openCartModal removed — no trigger exists in markup; modal is still closable via closeCartModal()
-
-// Close cart modal
 function closeCartModal() {
-    document.getElementById('cartModal').style.display = 'none';
-}
-
-// Close modal when clicking outside
-window.onclick = function(event) {
     const modal = document.getElementById('cartModal');
-    if (modal && event.target === modal) {
+    if (modal) {
         modal.style.display = 'none';
     }
 }
 
-function addToCart(ProductName, price) {
-    cart.push({ name: ProductName, price: parseFloat(price) });
-    total += parseFloat(price);
+// Close modal when clicking outside
+window.onclick = function (event) {
+    const modal = document.getElementById('cartModal');
+    if (modal && event.target === modal) {
+        modal.style.display = 'none';
+    }
+};
+
+function addToCart(productName, price) {
+    const normalizedPrice = parseFloat(price);
+    cart.push({ name: productName, price: normalizedPrice });
+    total += normalizedPrice;
     saveCart();
     renderCart();
     updateCartDisplay();
@@ -190,43 +234,32 @@ function removeFromCart(index) {
 }
 
 function placeOrder() {
-    if(total == 0){
-        var output = document.getElementById("returnMessage") || document.getElementById("modal-order-message");
-        if(output) {
-            output.innerHTML = "You didn't add anything to the cart.";
-            output.style.color = "red"; 
-        }
+    if (total === 0) {
+        setOrderMessage("You didn't add anything to the cart.", 'red');
+        return;
     }
-    else {
-        const userResponse = confirm("Your order has been placed! Total: $" + total.toFixed(2));
-        if(userResponse){
-            var output = document.getElementById("returnMessage") || document.getElementById("modal-order-message");
-            if(output) {
-                output.innerHTML = "You ordered Successfully.";
-                output.style.color = "green";
-                output.style.fontSize = "xx-large";
-            }
-            // Clear cart after successful order
-            cart = [];
-            total = 0;
-            saveCart();
-            renderCart();
-            renderCartModal();
-            // Close modal after successful order
-            setTimeout(closeCartModal, 100);
-        }else{
-            var output = document.getElementById("returnMessage") || document.getElementById("modal-order-message");
-            if(output) {
-                output.innerHTML = "You Canceled The Order.";
-                output.style.color = "red";
-                output.style.fontSize = "xx-large";
-            }
-        }
+
+    const userResponse = confirm('Your order has been placed! Total: $' + total.toFixed(2));
+
+    if (userResponse) {
+        setOrderMessage('You ordered Successfully.', 'green', 'xx-large');
+
+        // Clear cart after successful order
+        cart = [];
+        total = 0;
+        saveCart();
+        renderCart();
+        renderCartModal();
+
+        // Close modal after successful order
+        setTimeout(closeCartModal, 100);
+        return;
     }
+
+    setOrderMessage('You Canceled The Order.', 'red', 'xx-large');
 }
 
 // Load cart when page loads
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     loadCart();
-    updateCartDisplay();
 });

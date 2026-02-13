@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="app.js"></script>
     <link rel="stylesheet" href="products.css">
     <link rel="icon" href="images/logo.png">
     <title>Muhamed's Coffee</title>
@@ -63,7 +62,6 @@
             padding: 16px 28px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s ease;
             flex: 1;
             text-align: center;
             border-right: 1px solid rgba(255, 255, 255, 0.1);
@@ -101,12 +99,11 @@
             margin-bottom: 40px;
         }
 
-        .coffee-card {
+         .coffee-card {
             background: linear-gradient(135deg, #4a3f3f 0%, #3b2f2f 100%);
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
             border: 2px solid #5a4f4f;
         }
 
@@ -155,7 +152,6 @@
             font-weight: 600;
             cursor: pointer;
             width: 100%;
-            transition: all 0.3s ease;
             font-size: 1rem;
             box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
         }
@@ -334,10 +330,6 @@
             }
         }
 
-        nav a {
-            transition: all 0.3s ease;
-        }
-
         /* Section Title Animation */
         #coffee-list > h2 {
             animation: titleSlideUp 0.8s ease-out;
@@ -358,6 +350,7 @@
         .coffee-card {
             animation: cardSlideIn 0.6s ease-out both;
             transition: all 0.3s ease;
+            will-change: transform, box-shadow;
         }
 
         .coffee-card:nth-child(1) { animation-delay: 0.1s; }
@@ -437,7 +430,7 @@
         }
 
         /* Cart Item Animation */
-        .cart-item {
+      .cart-item {
             animation: cartItemFadeIn 0.4s ease-out backwards;
         }
 
@@ -579,7 +572,7 @@
         <h2>Our Coffee Selection</h2>
         <div class="coffee-grid">
             <div class="coffee-card">
-                <img src="/images/expresso_image.jpg" alt="Espresso">
+                <img src="/images/expresso_image.jpg" alt="Espresso" loading="lazy">
                 <div class="coffee-card-content">
                     <h3>Espresso</h3>
                     <p>Rich, bold, and concentrated</p>
@@ -675,6 +668,7 @@
         <a href="index.html">← Back to Home</a>
     </footer>
 
+    <script src="app.js" defer></script>
 </body>
 
 </html>
